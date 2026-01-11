@@ -81,31 +81,34 @@
 
     <div class="container">
         <header>
-            <h1>Your Name Here</h1>
+            <h1>Art Webpage</h1>
             <p class="subtitle">Digital Concept Artist & Illustrator</p>
         </header>
 
+        <nav class="site-nav" style="text-align:center; margin-top:20px;">
+            <a href="cats.html" id="cats-link" target="_blank" rel="noopener noreferrer" style="color:#ff7e5f; text-decoration:none; font-weight:600;">Cats</a>
+        </nav>
+
         <section class="about">
             <h2>About Me</h2>
-            <p>Welcome to my portfolio. I am a digital artist specializing in character design and landscapes. I use tools like Procreate and Photoshop to bring ideas to life.</p>
-            <p><strong>Contact:</strong> myemail@example.com</p>
+            <p>Welcome to my portfolio. I am a digital artist.</p>
         </section>
 
         <section class="gallery">
             
             <div class="art-piece">
                 <img src="pic/creatura.jpg" alt="Description of Art 1">
-                <div class="caption">Forest Sketch - 2024</div>
+                <div class="caption">traditional art</div>
             </div>
 
             <div class="art-piece">
-                <img src="https://via.placeholder.com/400x500/444/fff?text=Art+2" alt="Description of Art 2">
-                <div class="caption">Character Study</div>
+                <img src="pic/mink.png" alt="Description of Art 2">
+                <div class="caption">character study</div>
             </div>
 
             <div class="art-piece">
-                <img src="https://via.placeholder.com/400x300/555/fff?text=Art+3" alt="Description of Art 3">
-                <div class="caption">Cyberpunk City</div>
+                <img src="pic/person i drew.png" alt="Description of Art 3">
+                <div class="caption">color study</div>
             </div>
 
         </section>
@@ -116,6 +119,38 @@
     </div>
 
     <script>
+        // Ensure links and programmatic redirects to cats.html open in a new tab
+        (function(){
+            document.addEventListener('click', function(e){
+                var a = e.target.closest && e.target.closest('a');
+                if(!a) return;
+                var href = a.getAttribute('href');
+                if(!href) return;
+                if(href.indexOf('cats.html') !== -1){
+                    a.setAttribute('target', '_blank');
+                    a.setAttribute('rel', 'noopener noreferrer');
+                }
+            }, true);
+
+            var origAssign = window.location.assign;
+            window.location.assign = function(url){
+                if(typeof url === 'string' && url.indexOf('cats.html') !== -1){
+                    window.open(url, '_blank');
+                } else {
+                    origAssign.call(window.location, url);
+                }
+            };
+
+            var origReplace = window.location.replace;
+            window.location.replace = function(url){
+                if(typeof url === 'string' && url.indexOf('cats.html') !== -1){
+                    window.open(url, '_blank');
+                } else {
+                    origReplace.call(window.location, url);
+                }
+            };
+        })();
+
         document.addEventListener("contextmenu", function(e){
             // Check if the element clicked is an Image
             if (e.target.nodeName === "IMG") {
