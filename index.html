@@ -196,8 +196,21 @@
                     var value = json && (json.value || json.value === 0 ? json.value : json);
                     if(el('visit-count')) el('visit-count').textContent = 'Visitors: ' + (value != null ? value : '—');
                 } catch(err){
-                    if(el('visit-count')) el('visit-count').textContent = 'Visitors: unavailable';
                     console.warn('Counter error', err);
+                    try{
+                        // Local-device fallback: increment once per 24h per device
+                        var localKey = 'local_visit_count';
+                        var lastStored = localStorage.getItem(storageKey);
+                        var localCount = parseInt(localStorage.getItem(localKey),10) || 0;
+                        if(!lastStored || now - parseInt(lastStored,10) > 24*60*60*1000){
+                            localCount += 1;
+                            localStorage.setItem(localKey, String(localCount));
+                            localStorage.setItem(storageKey, String(now));
+                        }
+                        if(el('visit-count')) el('visit-count').textContent = 'Visitors (this device): ' + localCount;
+                    } catch(e){
+                        if(el('visit-count')) el('visit-count').textContent = 'Visitors: unavailable';
+                    }
                 }
             }
 
