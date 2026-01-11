@@ -193,9 +193,10 @@ https://kitzykitti.github.io/artwebpage/ -->
 <div id="statcounter-wrapper" aria-hidden="true"></div>
 <script type="text/javascript">
 (function(){
-    var sc_project=13197329;
-    var sc_invisible=0;
-    var sc_security="cd4225d9";
+    // Expose StatCounter variables globally so counter.js can read them
+    window.sc_project = 13197329;
+    window.sc_invisible = 0;
+    window.sc_security = "cd4225d9";
     var scJsHost = (('https:'==document.location.protocol)?'https://secure.':'http://www.');
 
     var wrapper = document.getElementById('statcounter-wrapper') || (function(){
