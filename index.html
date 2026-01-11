@@ -115,5 +115,14 @@
         </footer>
     </div>
 
+    <script>
+        document.addEventListener("contextmenu", function(e){
+            // Check if the element clicked is an Image
+            if (e.target.nodeName === "IMG") {
+                e.preventDefault(); // Stop the menu from opening
+            }
+        }, false);
+    </script>
+
 </body>
 </html>
