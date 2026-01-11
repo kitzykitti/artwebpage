@@ -123,10 +123,7 @@
 
         </section>
 
-        <section id="visitor-stats" style="margin-top:30px;padding:16px;background:#222;border-radius:8px;text-align:center;">
-            <div id="visit-count" style="font-weight:600;color:#ff7e5f">Visitors: —</div>
-            <div id="visitor-location" style="margin-top:6px;color:#ccc">Location: —</div>
-        </section>
+        <!-- Visitor stats removed from page. StatCounter snippet inserted below. -->
 
         <footer>
             &copy; 2024 Your Name. All rights reserved.
@@ -172,69 +169,21 @@
                 e.preventDefault(); // Stop the menu from opening
             }
         }, false);
-
-        // Visitor counter and basic geolocation (uses public third-party APIs)
-        (function(){
-            var namespace = 'edong-portfolio';
-            var key = 'homepage';
-            var storageKey = 'visit_count_last';
-
-            function el(id){ return document.getElementById(id); }
-
-            async function updateCounter(){
-                var now = Date.now();
-                var last = localStorage.getItem(storageKey);
-                try{
-                    var resp;
-                    if(!last || now - parseInt(last,10) > 24*60*60*1000){
-                        resp = await fetch('https://api.countapi.xyz/hit/'+namespace+'/'+key);
-                        localStorage.setItem(storageKey, String(now));
-                    } else {
-                        resp = await fetch('https://api.countapi.xyz/get/'+namespace+'/'+key);
-                    }
-                    var json = await resp.json();
-                    var value = json && (json.value || json.value === 0 ? json.value : json);
-                    if(el('visit-count')) el('visit-count').textContent = 'Visitors: ' + (value != null ? value : '—');
-                } catch(err){
-                    console.warn('Counter error', err);
-                    try{
-                        // Local-device fallback: increment once per 24h per device
-                        var localKey = 'local_visit_count';
-                        var lastStored = localStorage.getItem(storageKey);
-                        var localCount = parseInt(localStorage.getItem(localKey),10) || 0;
-                        if(!lastStored || now - parseInt(lastStored,10) > 24*60*60*1000){
-                            localCount += 1;
-                            localStorage.setItem(localKey, String(localCount));
-                            localStorage.setItem(storageKey, String(now));
-                        }
-                        if(el('visit-count')) el('visit-count').textContent = 'Visitors (this device): ' + localCount;
-                    } catch(e){
-                        if(el('visit-count')) el('visit-count').textContent = 'Visitors: unavailable';
-                    }
-                }
-            }
-
-            async function updateGeo(){
-                try{
-                    var r = await fetch('https://ipapi.co/json/');
-                    if(!r.ok) throw new Error('geo fetch failed');
-                    var j = await r.json();
-                    var parts = [j.city, j.region, j.country_name].filter(Boolean);
-                    var loc = parts.join(', ');
-                    if(el('visitor-location')) el('visitor-location').textContent = 'Your location: ' + (loc || 'Unknown');
-                } catch(err){
-                    if(el('visitor-location')) el('visitor-location').textContent = 'Location: unavailable';
-                    console.warn('Geo error', err);
-                }
-            }
-
-            // Start updates
-            document.addEventListener('DOMContentLoaded', function(){
-                updateCounter();
-                updateGeo();
-            });
-        })();
     </script>
-
+<!-- Default Statcounter code for My Art Page
+https://kitzykitti.github.io/artwebpage/ -->
+<script type="text/javascript">
+var sc_project=13197329; 
+var sc_invisible=0; 
+var sc_security="cd4225d9"; 
+var scJsHost = "https://";
+document.write("<sc"+"ript type='text/javascript' src='" + scJsHost+
+"statcounter.com/counter/counter.js'></"+"script>");
+</script>
+<noscript><div class="statcounter"><a title="real time web analytics"
+href="https://statcounter.com/" target="_blank"><img class="statcounter"
+src="https://c.statcounter.com/13197329/0/cd4225d9/0/" alt="real time web
+analytics" referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
+<!-- End of Statcounter Code -->
 </body>
 </html>
